@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Finanzas Personales</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Gestor de Finanzas Personales</h1>
+    </header>
+
+    <main>
+        <!-- RESUMEN DE FINANZAS -->
+        <section id="resumen">
+            <h2>Resumen</h2>
+            <div>
+                <span><strong>Ingresos:</strong> $<span id="totalIngresos">0</span></span>
+                <span><strong>Gastos:</strong> $<span id="totalGastos">0</span></span>
+                <span><strong>Saldo:</strong> $<span id="saldoDisponible">0</span></span>
+            </div>
+        </section>
+
+        <!-- FORMULARIO DE REGISTRO -->
+        <section id="formulario">
+            <h2>Registrar movimiento</h2>
+            <form id="movimientoForm">
+                <label>
+                    Tipo:
+                    <select id="tipo" required>
+                        <option value="ingreso">Ingreso</option>
+                        <option value="gasto">Gasto</option>
+                    </select>
+                </label>
+                <label>
+                    Categoría:
+                    <select id="categoria" required>
+                        <option value="">Seleccione</option>
+                        <option value="alimentacion">Alimentación</option>
+                        <option value="transporte">Transporte</option>
+                        <option value="ocio">Ocio</option>
+                        <option value="salud">Salud</option>
+                        <option value="otros">Otros</option>
+                    </select>
+                </label>
+                <label>
+                    Monto:
+                    <input type="number" id="monto" step="0.01" min="0" required />
+                </label>
+                <label>
+                    Medio de pago:
+                    <select id="medioPago" required>
+                        <option value="">Seleccione</option>
+                        <option value="efectivo">Efectivo</option>
+                        <option value="tarjetaDebito">Tarjeta Débito</option>
+                        <option value="tarjetaCredito">Tarjeta Crédito</option>
+                        <option value="otros">Otros</option>
+                    </select>
+                </label>
+                <label>
+                    Fecha:
+                    <input type="date" id="fecha" required />
+                </label>
+                <label>
+                    Descripción:
+                    <input type="text" id="descripcion" maxlength="100" placeholder="Opcional" />
+                </label>
+                <button type="submit">Agregar</button>
+            </form>
+            <div id="mensajeFeedback"></div>
+        </section>
+
+        <!-- FILTRO DE MOVIMIENTOS -->
+        <section id="filtros">
+            <h2>Filtrar movimientos</h2>
+            <label>
+                Categoría:
+                <select id="filtroCategoria">
+                    <option value="">Todas</option>
+                    <option value="alimentacion">Alimentación</option>
+                    <option value="transporte">Transporte</option>
+                    <option value="ocio">Ocio</option>
+                    <option value="salud">Salud</option>
+                    <option value="otros">Otros</option>
+                </select>
+            </label>
+            <label>
+                Medio de pago:
+                <select id="filtroMedioPago">
+                    <option value="">Todos</option>
+                    <option value="efectivo">Efectivo</option>
+                    <option value="tarjetaDebito">Tarjeta Débito</option>
+                    <option value="tarjetaCredito">Tarjeta Crédito</option>
+                    <option value="otros">Otros</option>
+                </select>
+            </label>
+            <button id="limpiarFiltros">Limpiar filtros</button>
+        </section>
+
+        <!-- TABLA DE MOVIMIENTOS -->
+        <section id="historial">
+            <h2>Historial de movimientos</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Categoría</th>
+                        <th>Monto</th>
+                        <th>Medio de pago</th>
+                        <th>Fecha</th>
+                        <th>Descripción</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaMovimientos">
+                    <!-- JS llenará las filas aquí -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>Finanzas Personales • 2025 • Jose Vicente Gonzalez Perez</p>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>
