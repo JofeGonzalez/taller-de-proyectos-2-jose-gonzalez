@@ -1,0 +1,14 @@
+{
+  "name": "taller-de-proyectos-2-jose-gonzalez",
+  "version": "1.0.0",
+  "description": "Small personal finance tracker",
+  "main": "main.js",
+  "scripts": {
+    "test": "jest --colors"
+  },
+  "author": "",
+  "license": "none",
+  "devDependencies": {
+    "jest": "^29.0.0"
+  }
+}

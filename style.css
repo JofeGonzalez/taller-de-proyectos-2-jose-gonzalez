@@ -151,7 +151,6 @@ footer {
     font-size: 0.95rem;
 }
 
-/* RESPONSIVE */
 @media (max-width: 700px) {
     main {
         padding: 1rem;
@@ -168,6 +167,31 @@ footer {
         align-items: stretch;
     }
     table, th, td {
-        font-size: 0.97em
-    }
+        font-size: 0.97em;
+    }
 }
+.focus-outline:focus {
+    outline: 3px dashed #6998ab;
+    outline-offset: 2px;
+}
+#modalConfirm {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.35);
+    z-index: 1000;
+}
+#modalConfirm[aria-hidden="false"] { display:flex; }
+.modalContent {
+    background: #fff;
+    padding: 1.4rem;
+    border-radius: 8px;
+    max-width: 400px;
+    text-align: center;
+}
+.modalActions { margin-top: 1rem; display:flex; gap: 0.6rem; justify-content: center; }
+.modalActions button { padding: 0.4em 0.8em; border-radius: 4px; }
+
+#chartArea canvas { max-width:100%; }

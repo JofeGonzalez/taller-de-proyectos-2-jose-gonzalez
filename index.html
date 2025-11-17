@@ -12,7 +12,6 @@
     </header>
 
     <main>
-        <!-- RESUMEN DE FINANZAS -->
         <section id="resumen">
             <h2>Resumen</h2>
             <div>
@@ -22,7 +21,6 @@
             </div>
         </section>
 
-        <!-- FORMULARIO DE REGISTRO -->
         <section id="formulario">
             <h2>Registrar movimiento</h2>
             <form id="movimientoForm">
@@ -68,10 +66,9 @@
                 </label>
                 <button type="submit">Agregar</button>
             </form>
-            <div id="mensajeFeedback"></div>
+            <div id="mensajeFeedback" aria-live="polite"></div>
         </section>
 
-        <!-- FILTRO DE MOVIMIENTOS -->
         <section id="filtros">
             <h2>Filtrar movimientos</h2>
             <label>
@@ -96,34 +93,54 @@
                 </select>
             </label>
             <button id="limpiarFiltros">Limpiar filtros</button>
+            <div style="margin-left: auto; display:flex; gap:0.6rem; align-items:center;">
+                <button id="exportCSV" aria-label="Exportar CSV">Exportar CSV</button>
+                <button id="importCSVButton" aria-label="Importar CSV">Importar CSV</button>
+                <input id="importCSVInput" type="file" accept=".csv" style="display:none" />
+            </div>
         </section>
 
-        <!-- TABLA DE MOVIMIENTOS -->
         <section id="historial">
             <h2>Historial de movimientos</h2>
             <table>
+                <caption id="tablaMovimientosTitle">Historial de movimientos</caption>
                 <thead>
                     <tr>
-                        <th>Tipo</th>
-                        <th>Categoría</th>
-                        <th>Monto</th>
-                        <th>Medio de pago</th>
-                        <th>Fecha</th>
-                        <th>Descripción</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Categoría</th>
+                        <th scope="col">Monto</th>
+                        <th scope="col">Medio de pago</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Descripción</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody id="tablaMovimientos">
-                    <!-- JS llenará las filas aquí -->
                 </tbody>
             </table>
+
+            <div aria-hidden="false" id="chartArea" style="margin-top:1rem;">
+                <h3>Gastos por categoría</h3>
+                <canvas id="chartCategorias" width="400" height="200"></canvas>
+            </div>
         </section>
+
+        <div id="modalConfirm" role="dialog" aria-modal="true" aria-hidden="true">
+            <div class="modalContent">
+                <p id="modalText">¿Estás seguro?</p>
+                <div class="modalActions">
+                    <button id="modalCancel">Cancelar</button>
+                    <button id="modalConfirmBtn">Confirmar</button>
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer>
         <p>Finanzas Personales • 2025 • Jose Vicente Gonzalez Perez</p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="main.js"></script>
 </body>
 </html>
