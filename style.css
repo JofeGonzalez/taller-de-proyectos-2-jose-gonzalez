@@ -195,3 +195,16 @@ footer {
 .modalActions button { padding: 0.4em 0.8em; border-radius: 4px; }
 
 #chartArea canvas { max-width:100%; }
+
+@media (max-width: 700px) {
+    #historial th, #historial td {
+        padding: 0.5em;
+        font-size: 0.9em;
+        white-space: nowrap;
+    }
+
+    #historial button {
+        padding: 0.2em 0.5em;
+        font-size: 0.8em;
+    }
+}
