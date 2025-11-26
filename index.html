@@ -102,22 +102,24 @@
 
         <section id="historial">
             <h2>Historial de movimientos</h2>
-            <table>
-                <caption id="tablaMovimientosTitle">Historial de movimientos</caption>
-                <thead>
-                    <tr>
-                        <th scope="col">Tipo</th>
-                        <th scope="col">Categoría</th>
-                        <th scope="col">Monto</th>
-                        <th scope="col">Medio de pago</th>
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Descripción</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="tablaMovimientos">
-                </tbody>
-            </table>
+            <div style="overflow-x: auto;">
+                <table>
+                    <caption id="tablaMovimientosTitle">Historial de movimientos</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Categoría</th>
+                            <th scope="col">Monto</th>
+                            <th scope="col">Medio de pago</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Descripción</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaMovimientos">
+                    </tbody>
+                </table>
+            </div>
 
             <div aria-hidden="false" id="chartArea" style="margin-top:1rem;">
                 <h3>Gastos por categoría</h3>

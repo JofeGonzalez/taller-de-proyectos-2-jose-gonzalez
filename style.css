@@ -197,14 +197,54 @@ footer {
 #chartArea canvas { max-width:100%; }
 
 @media (max-width: 700px) {
-    #historial th, #historial td {
-        padding: 0.5em;
+    #historial table {
         font-size: 0.9em;
-        white-space: nowrap;
+    }
+
+    #historial th {
+        display: none;
+    }
+
+    #historial tr {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+        border: 1px solid #e1e8ed;
+        border-radius: 4px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        background: #fff;
+    }
+
+    #historial td {
+        display: grid;
+        grid-template-columns: 100px 1fr;
+        align-items: center;
+        padding: 0.5rem 0;
+        border: none;
+        border-bottom: none;
+    }
+
+    #historial td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #204051;
+        margin-right: 0.5rem;
+    }
+
+    #historial tr:nth-child(even) {
+        background: #f9fafb;
     }
 
     #historial button {
-        padding: 0.2em 0.5em;
-        font-size: 0.8em;
+        padding: 0.4em 0.8em;
+        font-size: 0.9em;
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 0.3em;
+    }
+
+    #historial button:last-child {
+        margin-bottom: 0;
     }
 }

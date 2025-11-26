@@ -38,23 +38,30 @@ function mostrarMovimientos(movimientos) {
 
             const tdTipo = document.createElement('td');
             tdTipo.textContent = mov.tipo.charAt(0).toUpperCase() + mov.tipo.slice(1);
+            tdTipo.setAttribute('data-label', 'Tipo');
 
             const tdCategoria = document.createElement('td');
             tdCategoria.textContent = formatearCategoria(mov.categoria);
+            tdCategoria.setAttribute('data-label', 'Categoría');
 
             const tdMonto = document.createElement('td');
             tdMonto.textContent = formatCurrency(mov.monto);
+            tdMonto.setAttribute('data-label', 'Monto');
 
             const tdMedio = document.createElement('td');
             tdMedio.textContent = formatearMedio(mov.medioPago);
+            tdMedio.setAttribute('data-label', 'Medio de pago');
 
             const tdFecha = document.createElement('td');
             tdFecha.textContent = formatDate(mov.fecha);
+            tdFecha.setAttribute('data-label', 'Fecha');
 
             const tdDescripcion = document.createElement('td');
             tdDescripcion.textContent = mov.descripcion || '';
+            tdDescripcion.setAttribute('data-label', 'Descripción');
 
             const tdAcciones = document.createElement('td');
+            tdAcciones.setAttribute('data-label', 'Acciones');
             const btnEditar = document.createElement('button');
             btnEditar.textContent = '✏️';
             btnEditar.title = 'Editar';
