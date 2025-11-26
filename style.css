@@ -1,3 +1,4 @@
+/* BASE STYLES */
 body {
     margin: 0;
     font-family: 'Segoe UI', Arial, sans-serif;
@@ -151,6 +152,7 @@ footer {
     font-size: 0.95rem;
 }
 
+/* MOBILE RESPONSIVE */
 @media (max-width: 700px) {
     main {
         padding: 1rem;
@@ -174,6 +176,8 @@ footer {
     outline: 3px dashed #6998ab;
     outline-offset: 2px;
 }
+
+/* MODAL */
 #modalConfirm {
     position: fixed;
     inset: 0;

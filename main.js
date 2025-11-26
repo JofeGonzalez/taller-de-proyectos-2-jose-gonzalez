@@ -1,11 +1,15 @@
+// DATA MANAGEMENT
+// Retrieves all movements from localStorage, returns empty array if none exist
 function getMovimientos() {
     return JSON.parse(localStorage.getItem('movimientos')) || [];
 }
 
+// Saves movements to localStorage as JSON string
 function setMovimientos(movimientos) {
     localStorage.setItem('movimientos', JSON.stringify(movimientos));
 }
 
+// Updates the summary section with totals: income, expenses, and balance
 function actualizarResumen(movimientos) {
     let totalIngresos = movimientos
         .filter(m => m.tipo === 'ingreso')
@@ -18,12 +22,14 @@ function actualizarResumen(movimientos) {
     document.getElementById('saldoDisponible').textContent = (totalIngresos - totalGastos).toFixed(2);
 }
 
+// Displays movements in the table with applied filters for category and payment method
 function mostrarMovimientos(movimientos) {
     const filtroCategoria = document.getElementById('filtroCategoria').value;
     const filtroMedioPago = document.getElementById('filtroMedioPago').value;
     const tbody = document.getElementById('tablaMovimientos');
     tbody.innerHTML = "";
 
+    // Filter movements based on selected filters
     let filtrados = movimientos.filter(mov => {
         let pasaCategoria = filtroCategoria ? mov.categoria === filtroCategoria : true;
         let pasaMedio = filtroMedioPago ? mov.medioPago === filtroMedioPago : true;
@@ -36,6 +42,7 @@ function mostrarMovimientos(movimientos) {
         filtrados.forEach((mov, index) => {
             const tr = document.createElement('tr');
 
+            // Create and populate each table cell with data-label for mobile responsiveness
             const tdTipo = document.createElement('td');
             tdTipo.textContent = mov.tipo.charAt(0).toUpperCase() + mov.tipo.slice(1);
             tdTipo.setAttribute('data-label', 'Tipo');
@@ -94,6 +101,7 @@ function mostrarMovimientos(movimientos) {
     }
 }
 
+// Shows a confirmation modal with a callback function on confirmation
 function showModal(text, onConfirm) {
     const modal = document.getElementById('modalConfirm');
     document.getElementById('modalText').textContent = text;
@@ -101,6 +109,7 @@ function showModal(text, onConfirm) {
     const confirmBtn = document.getElementById('modalConfirmBtn');
     const cancel = document.getElementById('modalCancel');
 
+    // Cleanup function to remove event listeners and close modal
     function cleanup() {
         modal.setAttribute('aria-hidden', 'true');
         confirmBtn.removeEventListener('click', onYes);
@@ -117,6 +126,7 @@ function showModal(text, onConfirm) {
     cancel.addEventListener('click', onCancel);
 }
 
+// Exports all movements to a CSV file with current date as filename
 function exportCSV() {
     const movimientos = getMovimientos();
     const header = ['id','tipo','categoria','monto','medioPago','fecha','descripcion'];
@@ -133,6 +143,7 @@ function exportCSV() {
     URL.revokeObjectURL(url);
 }
 
+// Reads and imports a CSV file, merges it with existing movements
 function importCSVFile(file) {
     const reader = new FileReader();
     reader.onload = (evt) => {
@@ -145,7 +156,8 @@ function importCSVFile(file) {
                 mostrarMensaje('Archivo CSV inválido. Encabezados no coinciden.', true);
                 return;
             }
-                    const parsed = lines.map(line => {
+            // Parse CSV rows into movement objects
+            const parsed = lines.map(line => {
                         const values = line.match(/(?:\"([^\"]*)\"|[^,]+)/g)?.map(v => v.replace(/^"|"$/g, '')) || [];
                 return {
                     id: parseInt(values[0], 10) || Date.now(),
@@ -171,6 +183,7 @@ function importCSVFile(file) {
     reader.readAsText(file);
 }
 
+// CSV export/import event listeners
 document.getElementById('exportCSV').addEventListener('click', exportCSV);
 document.getElementById('importCSVButton').addEventListener('click', () => {
     document.getElementById('importCSVInput').click();
@@ -181,7 +194,9 @@ document.getElementById('importCSVInput').addEventListener('change', (e) => {
     importCSVFile(f);
 });
 
+// CHART MANAGEMENT
 let chartInstance = null;
+// Creates a pie chart showing expenses by category
 function drawCategoriesChart(movimientos) {
     const data = movimientos.filter(m => m.tipo === 'gasto').reduce((acc,m) => {
         acc[m.categoria] = (acc[m.categoria] || 0) + (m.monto || 0);
@@ -201,6 +216,8 @@ function drawCategoriesChart(movimientos) {
     });
 }
 
+// TABLE ACTIONS
+// Handles edit and delete button clicks in the movements table
 document.getElementById('tablaMovimientos').addEventListener('click', (e) => {
     const btn = e.target.closest('button[data-action]');
     if (!btn) return;
@@ -215,6 +232,8 @@ document.getElementById('tablaMovimientos').addEventListener('click', (e) => {
     }
 });
 
+// FORMATTING UTILITIES
+// Converts category codes to readable Spanish text
 function formatearCategoria(valor) {
     switch (valor) {
         case 'alimentacion': return 'Alimentación';
@@ -225,6 +244,8 @@ function formatearCategoria(valor) {
         default: return valor;
     }
 }
+
+// Converts payment method codes to readable Spanish text
 function formatearMedio(valor) {
     switch (valor) {
         case 'efectivo': return 'Efectivo';
@@ -235,12 +256,14 @@ function formatearMedio(valor) {
     }
 }
 
+// Formats numbers as currency with locale formatting
 function formatCurrency(value) {
     if (typeof value !== 'number') value = parseFloat(value) || 0;
     const formatted = value.toLocaleString(navigator.language || 'es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     return `$${formatted}`;
 }
 
+// Formats date string to locale-specific format
 function formatDate(dateString) {
     if (!dateString) return '';
     const d = new Date(dateString);
@@ -248,6 +271,8 @@ function formatDate(dateString) {
     return d.toLocaleDateString(navigator.language || 'es-ES');
 }
 
+// CRUD OPERATIONS
+// Deletes a movement by id and refreshes the UI
 window.eliminarMovimiento = function(id) {
     let movimientos = getMovimientos().filter(m => m.id !== id);
     setMovimientos(movimientos);
@@ -258,11 +283,13 @@ window.eliminarMovimiento = function(id) {
 
 let editingId = null;
 
+// Loads a movement into the form for editing
 function editarMovimiento(id) {
     const movimientos = getMovimientos();
     const mov = movimientos.find(m => m.id === id);
     if (!mov) return;
 
+    // Populate form fields with movement data
     document.getElementById('tipo').value = mov.tipo;
     document.getElementById('categoria').value = mov.categoria;
     document.getElementById('monto').value = mov.monto;
@@ -274,6 +301,7 @@ function editarMovimiento(id) {
     const submit = document.querySelector('#movimientoForm button[type=submit]');
     submit.textContent = 'Guardar cambios';
 
+    // Add cancel button for editing
     let cancel = document.getElementById('cancelEdit');
     if (!cancel) {
         cancel = document.createElement('button');
@@ -290,6 +318,8 @@ function editarMovimiento(id) {
     }
 }
 
+// FORM HANDLING
+// Handles form submission for adding or updating movements
 document.getElementById('movimientoForm').addEventListener('submit', function (e) {
     e.preventDefault();
 
@@ -300,6 +330,7 @@ document.getElementById('movimientoForm').addEventListener('submit', function (e
     const fecha = document.getElementById('fecha').value;
     const descripcion = document.getElementById('descripcion').value.trim();
 
+    // Validate required fields
     if (!tipo || !categoria || !medioPago || !fecha || isNaN(monto) || monto <= 0) {
         mostrarMensaje('Completa todos los campos obligatorios con valores válidos.', true);
         return;
@@ -307,6 +338,7 @@ document.getElementById('movimientoForm').addEventListener('submit', function (e
 
     let movimientos = getMovimientos();
     if (editingId) {
+        // Update existing movement
         movimientos = movimientos.map(m => m.id === editingId ? { ...m, tipo, categoria, monto, medioPago, fecha, descripcion } : m);
         editingId = null;
         const submit = document.querySelector('#movimientoForm button[type=submit]');
@@ -314,6 +346,7 @@ document.getElementById('movimientoForm').addEventListener('submit', function (e
         const cancel = document.getElementById('cancelEdit');
         if (cancel) cancel.remove();
     } else {
+        // Add new movement
         movimientos.push({
             id: Date.now(),
             tipo,
@@ -333,18 +366,26 @@ document.getElementById('movimientoForm').addEventListener('submit', function (e
     drawCategoriesChart(movimientos);
 });
 
+// FILTER EVENT LISTENERS
+// Refilters table when category filter changes
 document.getElementById('filtroCategoria').addEventListener('change', () => {
     mostrarMovimientos(getMovimientos());
 });
+
+// Refilters table when payment method filter changes
 document.getElementById('filtroMedioPago').addEventListener('change', () => {
     mostrarMovimientos(getMovimientos());
 });
+
+// Clears all filters and shows all movements
 document.getElementById('limpiarFiltros').addEventListener('click', () => {
     document.getElementById('filtroCategoria').value = '';
     document.getElementById('filtroMedioPago').value = '';
     mostrarMovimientos(getMovimientos());
 });
 
+// UI FEEDBACK
+// Shows a temporary message to the user (success or error)
 function mostrarMensaje(msj, error = false) {
     const div = document.getElementById('mensajeFeedback');
     div.textContent = msj;
@@ -352,6 +393,8 @@ function mostrarMensaje(msj, error = false) {
     setTimeout(() => { div.textContent = ""; }, 2300);
 }
 
+// INITIALIZATION
+// Loads and displays data when page loads
 window.onload = function () {
     const movimientos = getMovimientos();
     actualizarResumen(movimientos);
