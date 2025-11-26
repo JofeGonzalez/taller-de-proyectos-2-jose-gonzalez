@@ -143,6 +143,13 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="main.js"></script>
+    <!-- Load utilities first (no dependencies) -->
+    <script src="js/utils.js"></script>
+    <!-- Load data functions second (no dependencies) -->
+    <script src="js/data.js"></script>
+    <!-- Load UI functions third (depends on utils and data) -->
+    <script src="js/ui.js"></script>
+    <!-- Load main last (event listeners depend on everything) -->
+    <script src="js/main.js"></script>
 </body>
 </html>
