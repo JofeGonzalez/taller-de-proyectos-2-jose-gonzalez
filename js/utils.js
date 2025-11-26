@@ -2,11 +2,35 @@
 // Converts category codes to readable Spanish text
 function formatearCategoria(valor) {
     switch (valor) {
-        case 'alimentacion': return 'Alimentación';
-        case 'transporte': return 'Transporte';
-        case 'ocio': return 'Ocio';
+        case 'sueldo': return 'Sueldo';
+        case 'servicios': return 'Servicios';
+        case 'telefono': return 'Teléfono';
+        case 'seguros': return 'Seguros';
+        case 'alquiler': return 'Alquiler';
+        case 'mantenimiento': return 'Mantenimiento';
+        case 'muebles': return 'Muebles y Electro';
+        case 'suscripciones': return 'Suscripciones';
+        case 'transportePrivado': return 'Transporte Privado';
+        case 'transportePublico': return 'Transporte Público';
+        case 'supermercado': return 'Supermercado';
+        case 'kiosco': return 'Kiosco';
+        case 'cuidado': return 'Cuidado Personal';
         case 'salud': return 'Salud';
-        case 'otros': return 'Otros';
+        case 'indumentaria': return 'Indumentaria';
+        case 'ahorro': return 'Ahorro';
+        case 'inversiones': return 'Inversiones';
+        case 'imprevistos': return 'Imprevistos';
+        case 'familia': return 'Familia';
+        case 'tarjetas': return 'Tarjetas';
+        case 'educacion': return 'Educación';
+        case 'viajes': return 'Viajes';
+        case 'salidas': return 'Salidas';
+        case 'comidas': return 'Comidas';
+        case 'delivery': return 'Delivery';
+        case 'entretenimiento': return 'Entretenimiento';
+        case 'regalos': return 'Regalos';
+        case 'hobbies': return 'Hobbies y Gustos';
+        case 'oficina': return 'Oficina';
         default: return valor;
     }
 }
