@@ -254,8 +254,6 @@ window.eliminarMovimiento = function(id) {
     actualizarResumen(movimientos);
     mostrarMovimientos(movimientos);
     drawCategoriesChart(movimientos);
-    drawCategoriesChart(movimientos);
-    drawCategoriesChart(movimientos);
 };
 
 let editingId = null;
@@ -332,6 +330,7 @@ document.getElementById('movimientoForm').addEventListener('submit', function (e
     mostrarMensaje('Movimiento registrado con éxito.', false);
     actualizarResumen(movimientos);
     mostrarMovimientos(movimientos);
+    drawCategoriesChart(movimientos);
 });
 
 document.getElementById('filtroCategoria').addEventListener('change', () => {
